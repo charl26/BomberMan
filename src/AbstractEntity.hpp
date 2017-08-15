@@ -5,7 +5,9 @@
 #ifndef BOMBERMAN_ABSTRACTENTITY_H
 #define BOMBERMAN_ABSTRACTENTITY_H
 
-#include "Bomberman.hpp"
+enum ActiveEffects {TEMP1 = 1};
+enum Animation {TEMP2 = 1};
+enum Type {PLAYER = 1, GHOST = 2, BOMB = 3, EXPLOSION = 4, POWERUP = 5, BRICK = 6, SOLIDBRICK = 7, DOOR = 8};
 
 class AbstractEntity {
 private:
