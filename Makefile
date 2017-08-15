@@ -6,12 +6,14 @@ CC              =   clang++ -std=gnu++11
 CPPFLAGS        =   -Wall -Wextra -Werror
 RM              =   rm -rf
 DEPENDENCIES    = ./Build.sh
+INCLUDES        = -I ~/.brew/include/SDL2
+LIBS            = -L ~/.brew/lib/ -lSDL2 -lSDL2_image -lSDL2_ttf
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(DEPENDENCIES)
-	$(CC) $(CPPFLAGS) $(SRC) -o $(NAME)
+	$(CC) $(INCLUDES) $(LIBS) $(CPPFLAGS) $(SRC) -o $(NAME)
 clean:
 	$(RM)
 

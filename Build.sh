@@ -9,11 +9,10 @@ if [[ $? == 127 ]]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
 fi
 
-sdl-config --cflags;
+~/.brew/Cellar/sdl2/2.0.5/bin/sdl2-config --version;
 
 if [[ $? == 127 ]]; then
 	brew install sdl2;
-	brew link sdl2;
 	brew install sdl2_image;
 	brew install sdl2_ttf;
 	brew install glew;
