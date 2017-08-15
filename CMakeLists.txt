@@ -4,6 +4,9 @@ project(BomberMan)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-		src/main.cpp)
+        src/AbstractEntity.cpp
+        src/AbstractEntity.hpp
+        src/Bomberman.hpp
+        src/main.cpp)
 
 add_executable(BomberMan ${SOURCE_FILES})
