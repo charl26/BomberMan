@@ -8,6 +8,7 @@
 enum ActiveEffects {TEMP1 = 1};
 enum Animation {TEMP2 = 1};
 enum Type {PLAYER = 1, GHOST = 2, BOMB = 3, EXPLOSION = 4, POWERUP = 5, BRICK = 6, SOLIDBRICK = 7, DOOR = 8};
+enum EFFECT {BOMBS = 0, FLAMES = 1, SPEED = 2, EXITDOOR = 3};
 
 class AbstractEntity {
 private:
