@@ -4,8 +4,9 @@
 
 #include <iostream>
 
-int main(void) {
-  std::cout << "Hello World!" << std::endl;
-	
-  return (0);
+int main() {
+
+	//TODO pass control to gameEngine for menu
+	std::cout << "Hello World!" << std::endl;
+	return (0);
 }
