@@ -2,6 +2,7 @@
 // Created by Charl THERON on 2017/08/15.
 //
 
+#include <cstdlib>
 #include "LogicManager.hpp"
 #include "EventManager.hpp"
 
@@ -9,43 +10,35 @@ void LogicManager::moveExplosion() {
 
 }
 
-void checkCollision (signed short int coordX, signed short int coordY) {
+/**
+ * @brief coordinates of the objects current position of ether the bomberman or the ghost
+ * @param coordX the X coordinates
+ * @param coordY the Y coordinates
+ * @return if there is a collision it will return the - Object that it has collied with else it will return - NULL
+ */
+AbstractEntity checkCollision(signed short int coordX, signed short int coordY) {
 	for (int i = 0; i < objectList.size(); i++) {
 		if ((objectList[i].getXPos() == coordX) && (objectList[i].getYPos() == coordY)) {
-			performCollision(objectList[i]);
+			return (objectList[i]);
 		}
 	}
+	return NULL;
 }
 
 /**
- * @brief Moves the player depends on the direction of the keyhook call back
- * @param direction of player  1 -- up 2 -- down 3 -- left default -- right
+ * @param ghost takes in a ghost to workout which is the best move for it based on it position
+ * @return a int base direction for the ghost to move (0 = NoMOVE) ( 1 = UP ) ( 2 = DOWN ) ( 3 = LEFT ) ( 4 = RIGHT )
  */
 
-void LogicManager::movePlayer(int direction) {
-
-	checkCollision(eventmanager->bomberman->getXPos(), eventmanager->bomberman->getYPos()); //Passable check for bug
-
-	switch (direction) {
-		case 1: {
-			checkCollision(eventmanager->bomberman->getXPos(), eventmanager->bomberman->getYPos() - 1); //Passable check for bug
-			// EventManager->MovePlayer(UP);
-			break;
-		}
-		case 2: {
-			checkCollision(eventmanager->bomberman->getXPos(), eventmanager->bomberman->getYPos() +  1); //Passable check for bug
-			// EventManager->MovePlayer(DOWN);
-			break;
-		}
-		case 3: {
-			checkCollision(eventmanager->bomberman->getXPos() - 1, eventmanager->bomberman->getYPos()); //Passable check for bug
-			// EventManager->MovePlayer(LEFT);
-			break;
-		}
-		default: {
-			checkCollision(eventmanager->bomberman->getXPos() + 1, eventmanager->bomberman->getYPos()); //Passable check for bug
-			// EventManager->MovePlayer(RIGHT);
-			break;
-		}
+int LogicManager::moveGhost(const Ghost &ghost) {
+	int direction = 0;
+	if (ghost.getSmartness() == 2) {
+		direction = smartMonsterMove(ghost);
 	}
+	return direction;
+}
+
+int LogicManager::smartMonsterMove(const Ghost &ghost) {
+	int direction = 0;
+	return direction;
 }

@@ -7,3 +7,11 @@
 Ghost::Ghost() {}
 
 Ghost::~Ghost() {}
+
+int Ghost::getSmartness() const {
+	return smartness;
+}
+
+void Ghost::setSmartness(int smartness) {
+	Ghost::smartness = smartness;
+}

@@ -7,15 +7,16 @@
 
 
 #include "AbstractEntity.hpp"
+#include "Ghost.hpp"
 
 class EventManager;
 
 class LogicManager {
-	void movePlayer(int direction);
-	void moveGhost();
+	int LogicManager::moveGhost(const Ghost &ghost);
 	void moveExplosion();
 
+	int smartMonsterMove(const Ghost &ghost);
 };
 
 
-#endif //BOMBERMAN_LOGICMANAGER_HPP
+#endif
