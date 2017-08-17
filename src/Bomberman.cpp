@@ -20,6 +20,22 @@ void Bomberman::setLives(short lives) {
     Bomberman::lives = lives;
 }
 
+short Bomberman::getXBombRange() const {
+    return xBombRange;
+}
+
+void Bomberman::setXBombRange(short xBombRange) {
+    Bomberman::xBombRange = xBombRange;
+}
+
+short Bomberman::getYBombRange() const {
+    return yBombRange;
+}
+
+void Bomberman::setYBombRange(short yBombRange) {
+    Bomberman::yBombRange = yBombRange;
+}
+
 bool Bomberman::isRemote() const {
     return remote;
 }

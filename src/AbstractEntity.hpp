@@ -5,18 +5,20 @@
 #ifndef BOMBERMAN_ABSTRACTENTITY_H
 #define BOMBERMAN_ABSTRACTENTITY_H
 
-enum ActiveEffects {TEMP1 = 1};
-enum Animation {TEMP2 = 1};
-enum Type {PLAYER = 1, GHOST = 2, BOMB = 3, EXPLOSION = 4, POWERUP = 5, BRICK = 6, SOLIDBRICK = 7, DOOR = 8};
-enum EFFECT {BOMBS = 0, FLAMES = 1, SPEED = 2, EXITDOOR = 3};
+#include <vector>
+
+enum Animation {BOMBANIM = 1, EXPLODEANIM = 2, POWERANIM = 3, PLAYERANIM = 4};
+enum Type {EMPTYTILE = 0, PLAYER = 1, GHOST = 2, BOMB = 3, EXPLOSION = 4, BRICK = 5, BRICKWITHPWR = 6, SOLIDBRICK = 7, DOOR = 8, BOMBCOUNTPWR = 9, FLAMESIZEPWR = 10, PLAYERSPEEDPWR = 11};
+enum Effect {PIERCEBOMB = 1, POWERBOMB = 2, SOFTBLOCKPASS = 3, BOMBPASS = 4};
+enum Direction {UP = 1, DOWN = 2, LEFT = 3, RIGHT = 4};
 
 class AbstractEntity {
 private:
-    signed short int    xPos;
-    signed short int    yPos;
-    ActiveEffects       activeEffects;
-    Animation           animation;
-    Type                type;
+    signed short int                xPos;
+    signed short int                yPos;
+    std::vector<Effect>             activeEffects;
+    Animation                       animation;
+    Type                            type;
 
 public:
     AbstractEntity();
@@ -29,9 +31,9 @@ public:
 
     void setYPos(short yPos);
 
-    ActiveEffects getActiveEffects() const;
+    std::vector<Effect> getActiveEffects() const;
 
-    void setActiveEffects(ActiveEffects activeEffects);
+    void setActiveEffects(std::vector<Effect> &activeEffects);
 
     Animation getAnimation() const;
 
