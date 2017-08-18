@@ -12,7 +12,7 @@ class Brick : public AbstractEntity{
         bool        powerUp;
 
     public:
-        Brick(bool powerUp);
+        Brick();
 
         bool hasPowerUp() const;
 

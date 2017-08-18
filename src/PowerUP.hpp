@@ -13,7 +13,7 @@ private:
 	Effect effect;
 
 public:
-	PowerUP(Type type);
+    PowerUP();
 
 	~PowerUP() override;
 

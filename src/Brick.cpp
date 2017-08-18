@@ -4,12 +4,7 @@
 
 #include "Brick.hpp"
 
-Brick::Brick(bool powerUp) : powerUp(powerUp) {
-    if (powerUp) {
-        setType(BRICKWITHPWR);
-    } else {
-        setType(BRICK);
-    }
+Brick::Brick() : powerUp(powerUp) {
 }
 
 bool Brick::hasPowerUp() const {

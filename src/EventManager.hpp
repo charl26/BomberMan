@@ -89,6 +89,8 @@ public:
     void nextLevel();
 
     void resetLevel();
+
+    void generateObjects();
 };
 
 #endif //BOMBERMAN_EVENTMANAGER_H

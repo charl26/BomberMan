@@ -4,13 +4,7 @@
 
 #include "PowerUP.hpp"
 
-PowerUP::~PowerUP() {
-
-}
-
-PowerUP::PowerUP(Type type) {
-	setType(type);
-}
+PowerUP::PowerUP() {}
 
 Effect PowerUP::getEffect() const {
 	return effect;
@@ -19,3 +13,5 @@ Effect PowerUP::getEffect() const {
 void PowerUP::setEffect(Effect effect) {
 	PowerUP::effect = effect;
 }
+
+PowerUP::~PowerUP() {}
