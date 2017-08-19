@@ -5,7 +5,7 @@
 #include "Bomb.hpp"
 
 Bomb::Bomb(signed short int fuseTime) {
-	Bomb::fuseTime = fuseTime;
+    Bomb::fuseTime = fuseTime;
 }
 
 signed short int Bomb::getFuseTime() const {

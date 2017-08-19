@@ -17,8 +17,8 @@ EventManager::EventManager() {
  */
 
 void EventManager::generateObjects() {
-    int     mapRows;
-    int     mapCol;
+    int mapRows;
+    int mapCol;
 
     mapRows = sizeof(map) / sizeof(map[0]);
     mapCol = sizeof(map[0]) / sizeof(map[0][0]);
@@ -27,19 +27,14 @@ void EventManager::generateObjects() {
         for (int y{}; y < mapCol; y++) {
             switch (map[x][y]) {
                 case PLAYER: {
-                    bomberman = new Bomberman(1, 3, false);
-                    std::vector<Effect>     activeEffects = {};
+                    bomberman = new Bomberman(1, 3, false, 3, 3);
+                    std::vector<Effect> activeEffects = {};
 
                     bomberman->setType(PLAYER);
                     bomberman->setAnimation(PLAYERANIM);
                     bomberman->setXPos(static_cast<signed short int>(x));
                     bomberman->setYPos(static_cast<signed short int>(y));
-                    bomberman->setBombCount(1);
                     bomberman->setActiveEffects(activeEffects);
-                    bomberman->setLives(3);
-                    bomberman->setRemote(false);
-                    bomberman->setXBombRange(3);
-                    bomberman->setYBombRange(3);
                     break;
                 }
                 case GHOST: {
@@ -51,46 +46,43 @@ void EventManager::generateObjects() {
                     ghost->setType(GHOST);
 
                     ghosts.push_back(ghost);
-                    objects.push_back((AbstractEntity *)ghost);
+                    objects.push_back((AbstractEntity *) ghost);
                     break;
                 }
                 case BRICK: {
-                    auto *brick = new Brick();
+                    auto *brick = new Brick(false);
 
                     brick->setXPos(static_cast<signed short int>(x));
                     brick->setYPos(static_cast<signed short int>(y));
                     brick->setAnimation(BRICKANIM);
                     brick->setType(BRICK);
-                    brick->setPowerUp(false);
 
                     bricks.push_back(brick);
-                    objects.push_back((AbstractEntity *)brick);
+                    objects.push_back((AbstractEntity *) brick);
                     break;
                 }
                 case BRICKWITHPWR: {
-                    auto *brick = new Brick();
+                    auto *brick = new Brick(true);
 
                     brick->setXPos(static_cast<signed short int>(x));
                     brick->setYPos(static_cast<signed short int>(y));
                     brick->setAnimation(BRICKANIM);
                     brick->setType(BRICKWITHPWR);
-                    brick->setPowerUp(true);
 
                     bricks.push_back(brick);
-                    objects.push_back((AbstractEntity *)brick);
+                    objects.push_back((AbstractEntity *) brick);
                     break;
                 }
                 case SOLIDBRICK: {
-                    auto *brick = new Brick();
+                    auto *brick = new Brick(false);
 
                     brick->setXPos(static_cast<signed short int>(x));
                     brick->setYPos(static_cast<signed short int>(y));
                     brick->setAnimation(BRICKANIM);
                     brick->setType(SOLIDBRICK);
-                    brick->setPowerUp(false);
 
                     bricks.push_back(brick);
-                    objects.push_back((AbstractEntity *)brick);
+                    objects.push_back((AbstractEntity *) brick);
                     break;
                 }
                 case DOOR: {
@@ -103,7 +95,7 @@ void EventManager::generateObjects() {
                     powerup->setType(DOOR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *)powerup);
+                    objects.push_back((AbstractEntity *) powerup);
                     break;
                 }
                 case BOMBCOUNTPWR: {
@@ -116,7 +108,7 @@ void EventManager::generateObjects() {
                     powerup->setType(BOMBCOUNTPWR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *)powerup);
+                    objects.push_back((AbstractEntity *) powerup);
                     break;
                 }
                 case FLAMESIZEPWR: {
@@ -129,7 +121,7 @@ void EventManager::generateObjects() {
                     powerup->setType(FLAMESIZEPWR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *)powerup);
+                    objects.push_back((AbstractEntity *) powerup);
                     break;
                 }
                 case PLAYERSPEEDPWR: {
@@ -142,7 +134,7 @@ void EventManager::generateObjects() {
                     powerup->setType(PLAYERSPEEDPWR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *)powerup);
+                    objects.push_back((AbstractEntity *) powerup);
                     break;
                 }
                 default: {
@@ -207,4 +199,13 @@ const std::vector<PowerUP *> &EventManager::getPowerups() const {
 
 void EventManager::setPowerups(const std::vector<PowerUP *> &powerups) {
     EventManager::powerups = powerups;
+}
+
+void EventManager::performCollision(Type colliderType, AbstractEntity &object) {
+    switch (object.getType()) {
+
+        default: {
+            break;
+        }
+    }
 }

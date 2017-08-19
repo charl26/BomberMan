@@ -79,7 +79,7 @@ void TestDrawEventManagerConstructorObjects() {
         std::cout << std::endl;
     }
     std::cout << std::endl;
-    delete(eventManager);
+    delete (eventManager);
 }
 
 /**
@@ -173,7 +173,7 @@ void TestEventManagerConstructor() {
     }
 
     std::cout << "Object Generation Test: " << objectPass << std::endl;
-    delete(eventManager);
+    delete (eventManager);
 }
 
 /**
@@ -278,5 +278,5 @@ void TestEventManagerConstructorCoordinates() {
     }
 
     std::cout << "Object coordinate Test: " << coordPass << std::endl;
-    delete(eventManager);
+    delete (eventManager);
 }

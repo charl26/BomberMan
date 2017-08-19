@@ -16,7 +16,7 @@ private:
     signed short int    yBombRange;
 
 public:
-    Bomberman(short bombCount, short lives, bool remote);
+    Bomberman(short bombCount, short lives, bool remote, signed short int xBombRange, signed short int yBombRange);
 
     short getBombCount() const;
 

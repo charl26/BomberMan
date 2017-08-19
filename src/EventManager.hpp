@@ -16,28 +16,26 @@
 
 class EventManager {
 private:
-    Bomberman *bomberman;
-    std::vector<AbstractEntity *> objects;
-    std::vector<Ghost *> ghosts;
-    std::vector<Bomb *> bombs;
-    std::vector<Brick *> bricks;
-    std::vector<Explosion *> explosions;
-    std::vector<PowerUP *> powerups;
+    Bomberman                       *bomberman;
+    std::vector<AbstractEntity *>   objects;
+    std::vector<Ghost *>            ghosts;
+    std::vector<Bomb *>             bombs;
+    std::vector<Brick *>            bricks;
+    std::vector<Explosion *>        explosions;
+    std::vector<PowerUP *>          powerups;
 
 public:
-    int map[11][13] = {{7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7},
-                       {7, 1, 0, 2, 0, 0, 0, 0, 0, 5, 0, 6 ,7},
-                       {7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7},
-                       {7, 0, 0, 0, 0, 0, 0, 11, 0, 10, 0, 9, 7},
-                       {7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7},
-                       {7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                       {7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7},
-                       {7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                       {7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7},
-                       {7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                       {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7}};
-
-    // 58 Objects
+    int map[11][13] = {{7,7,7,7,7,7,7,7,7,7,7,7,7},
+                       {7,1,0,2,0,0,0,0,0,5,0,6,7},
+                       {7,0,7,0,7,0,7,0,7,0,7,0,7},
+                       {7,0,0,0,0,0,0,11,0,10,0,9,7},
+                       {7,0,7,0,7,0,7,0,7,0,7,0,7},
+                       {7,0,0,0,0,0,0,0,0,0,0,0,7},
+                       {7,0,7,0,7,0,7,0,7,0,7,0,7},
+                       {7,0,0,0,0,0,0,0,0,0,0,0,7},
+                       {7,0,7,0,7,0,7,0,7,0,7,0,7},
+                       {7,8,0,0,0,0,0,0,0,0,0,0,7},
+                       {7,7,7,7,7,7,7,7,7,7,7,7,7}};
 
     EventManager();
 

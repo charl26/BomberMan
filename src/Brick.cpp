@@ -4,7 +4,9 @@
 
 #include "Brick.hpp"
 
-Brick::Brick() {}
+Brick::Brick(bool powerUp) {
+    Brick::powerUp = powerUp;
+}
 
 bool Brick::isPowerUp() const {
     return powerUp;

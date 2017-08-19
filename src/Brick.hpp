@@ -7,12 +7,12 @@
 
 #include "AbstractEntity.hpp"
 
-class Brick : public AbstractEntity{
+class Brick : public AbstractEntity {
 private:
-    bool        powerUp;
+    bool    powerUp;
 
 public:
-    Brick();
+    Brick(bool powerUp);
 
     bool isPowerUp() const;
 

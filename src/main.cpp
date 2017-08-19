@@ -5,7 +5,9 @@
 #include "EventManager.hpp"
 
 void TestDrawEventManagerConstructorObjects();
+
 void TestEventManagerConstructor();
+
 void TestEventManagerConstructorCoordinates();
 
 int main(void) {
