@@ -46,7 +46,7 @@ void EventManager::generateObjects() {
                     ghost->setType(GHOST);
 
                     ghosts.push_back(ghost);
-                    objects.push_back((AbstractEntity *) ghost);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(ghost));
                     break;
                 }
                 case BRICK: {
@@ -58,7 +58,7 @@ void EventManager::generateObjects() {
                     brick->setType(BRICK);
 
                     bricks.push_back(brick);
-                    objects.push_back((AbstractEntity *) brick);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(brick));
                     break;
                 }
                 case BRICKWITHPWR: {
@@ -70,7 +70,7 @@ void EventManager::generateObjects() {
                     brick->setType(BRICKWITHPWR);
 
                     bricks.push_back(brick);
-                    objects.push_back((AbstractEntity *) brick);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(brick));
                     break;
                 }
                 case SOLIDBRICK: {
@@ -82,7 +82,7 @@ void EventManager::generateObjects() {
                     brick->setType(SOLIDBRICK);
 
                     bricks.push_back(brick);
-                    objects.push_back((AbstractEntity *) brick);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(brick));
                     break;
                 }
                 case DOOR: {
@@ -95,7 +95,7 @@ void EventManager::generateObjects() {
                     powerup->setType(DOOR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *) powerup);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(powerup));
                     break;
                 }
                 case BOMBCOUNTPWR: {
@@ -108,7 +108,7 @@ void EventManager::generateObjects() {
                     powerup->setType(BOMBCOUNTPWR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *) powerup);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(powerup));
                     break;
                 }
                 case FLAMESIZEPWR: {
@@ -121,7 +121,7 @@ void EventManager::generateObjects() {
                     powerup->setType(FLAMESIZEPWR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *) powerup);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(powerup));
                     break;
                 }
                 case PLAYERSPEEDPWR: {
@@ -134,7 +134,7 @@ void EventManager::generateObjects() {
                     powerup->setType(PLAYERSPEEDPWR);
 
                     powerups.push_back(powerup);
-                    objects.push_back((AbstractEntity *) powerup);
+                    objects.push_back(dynamic_cast<AbstractEntity *>(powerup));
                     break;
                 }
                 default: {
@@ -201,11 +201,4 @@ void EventManager::setPowerups(const std::vector<PowerUP *> &powerups) {
     EventManager::powerups = powerups;
 }
 
-void EventManager::performCollision(Type colliderType, AbstractEntity &object) {
-    switch (object.getType()) {
 
-        default: {
-            break;
-        }
-    }
-}
