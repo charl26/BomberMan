@@ -10,10 +10,10 @@ PowerUP::~PowerUP() {
 
 PowerUP::PowerUP() {}
 
-EFFECT PowerUP::getEffect() const {
+Effect PowerUP::getEffect() const {
 	return effect;
 }
 
-void PowerUP::setEffect(EFFECT effect) {
+void PowerUP::setEffect(Effect effect) {
 	PowerUP::effect = effect;
 }

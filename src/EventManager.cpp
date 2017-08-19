@@ -5,22 +5,7 @@
 #include "EventManager.hpp"
 #include <iostream>
 
-/**
- * @brief
- *
- * Opens a map file and stores it in a 2D int array.
- *
- */
-
 EventManager::EventManager() {
-    mapFile.open("Test.txt");
-
-    for (int y = 0; y < 20; y++) {
-        for (int x = 0; x < 20; x++) {
-            mapFile >> map[x][y];
-        }
-    }
-
     generateObjects();
 }
 
@@ -38,12 +23,12 @@ void EventManager::generateObjects() {
     mapRows = sizeof(map) / sizeof(map[0]);
     mapCol = sizeof(map[0]) / sizeof(map[0][0]);
 
-    for (int y{}; y < mapCol; y++) {
-        for (int x{}; x < mapRows; x++) {
+    for (int x{}; x < mapRows; x++) {
+        for (int y{}; y < mapCol; y++) {
             switch (map[x][y]) {
                 case PLAYER: {
                     bomberman = new Bomberman(1, 3, false);
-                    std::__1::vector<Effect>     activeEffects = {};
+                    std::vector<Effect>     activeEffects = {};
 
                     bomberman->setType(PLAYER);
                     bomberman->setAnimation(PLAYERANIM);
@@ -117,7 +102,6 @@ void EventManager::generateObjects() {
                     powerup->setAnimation(POWERANIM);
                     powerup->setType(DOOR);
 
-
                     powerups.push_back(powerup);
                     objects.push_back((AbstractEntity *)powerup);
                     break;
@@ -130,7 +114,6 @@ void EventManager::generateObjects() {
                     powerup->setEffect(BOMCOUNTINC);
                     powerup->setAnimation(POWERANIM);
                     powerup->setType(BOMBCOUNTPWR);
-
 
                     powerups.push_back(powerup);
                     objects.push_back((AbstractEntity *)powerup);
@@ -145,7 +128,6 @@ void EventManager::generateObjects() {
                     powerup->setAnimation(POWERANIM);
                     powerup->setType(FLAMESIZEPWR);
 
-
                     powerups.push_back(powerup);
                     objects.push_back((AbstractEntity *)powerup);
                     break;
@@ -159,7 +141,6 @@ void EventManager::generateObjects() {
                     powerup->setAnimation(POWERANIM);
                     powerup->setType(PLAYERSPEEDPWR);
 
-
                     powerups.push_back(powerup);
                     objects.push_back((AbstractEntity *)powerup);
                     break;
@@ -170,4 +151,60 @@ void EventManager::generateObjects() {
             }
         }
     }
+}
+
+Bomberman *EventManager::getBomberman() const {
+    return bomberman;
+}
+
+void EventManager::setBomberman(Bomberman *bomberman) {
+    EventManager::bomberman = bomberman;
+}
+
+const std::vector<AbstractEntity *> &EventManager::getObjects() const {
+    return objects;
+}
+
+void EventManager::setObjects(const std::vector<AbstractEntity *> &objects) {
+    EventManager::objects = objects;
+}
+
+const std::vector<Ghost *> &EventManager::getGhosts() const {
+    return ghosts;
+}
+
+void EventManager::setGhosts(const std::vector<Ghost *> &ghosts) {
+    EventManager::ghosts = ghosts;
+}
+
+const std::vector<Bomb *> &EventManager::getBombs() const {
+    return bombs;
+}
+
+void EventManager::setBombs(const std::vector<Bomb *> &bombs) {
+    EventManager::bombs = bombs;
+}
+
+const std::vector<Brick *> &EventManager::getBricks() const {
+    return bricks;
+}
+
+void EventManager::setBricks(const std::vector<Brick *> &bricks) {
+    EventManager::bricks = bricks;
+}
+
+const std::vector<Explosion *> &EventManager::getExplosions() const {
+    return explosions;
+}
+
+void EventManager::setExplosions(const std::vector<Explosion *> &explosions) {
+    EventManager::explosions = explosions;
+}
+
+const std::vector<PowerUP *> &EventManager::getPowerups() const {
+    return powerups;
+}
+
+void EventManager::setPowerups(const std::vector<PowerUP *> &powerups) {
+    EventManager::powerups = powerups;
 }

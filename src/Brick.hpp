@@ -12,7 +12,7 @@ private:
     bool        powerUp;
 
 public:
-    Brick(bool powerUp);
+    Brick();
 
     bool isPowerUp() const;
 

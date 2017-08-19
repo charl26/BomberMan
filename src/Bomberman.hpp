@@ -12,6 +12,8 @@ private:
     signed short int    bombCount;
     signed short int    lives;
     bool                remote;
+    signed short int    xBombRange;
+    signed short int    yBombRange;
 
 public:
     Bomberman(short bombCount, short lives, bool remote);
@@ -27,6 +29,14 @@ public:
     bool isRemote() const;
 
     void setRemote(bool remote);
+
+    short getXBombRange() const;
+
+    void setXBombRange(short xBmbRange);
+
+    short getYBombRange() const;
+
+    void setYBombRange(short yBombRange);
 
     virtual ~Bomberman();
 };

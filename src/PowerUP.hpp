@@ -9,15 +9,15 @@
 #include "AbstractEntity.hpp"
 
 class PowerUP : public AbstractEntity {
-	EFFECT effect;
+	Effect effect;
 public:
 	PowerUP();
 
 	~PowerUP() override;
 
-	EFFECT getEffect() const;
+	Effect getEffect() const;
 
-	void setEffect(EFFECT effect);
+	void setEffect(Effect effect);
 };
 
 #endif
