@@ -12,11 +12,11 @@
 class EventManager;
 
 class LogicManager {
-	int LogicManager::moveGhost(const Ghost &ghost);
+public:
+	int moveGhost(const Ghost &ghost);
+	AbstractEntity *const & retrieveObjectByCoordinates(signed short int coordX, signed short int coordY);
 	void moveExplosion();
 
-	int smartMonsterMove(const Ghost &ghost);
 };
-
 
 #endif

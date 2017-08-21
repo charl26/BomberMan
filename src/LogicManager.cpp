@@ -11,18 +11,21 @@ void LogicManager::moveExplosion() {
 }
 
 /**
- * @brief coordinates of the objects current position of ether the bomberman or the ghost
+ * @brief Retrieve a object by the coordinates
  * @param coordX the X coordinates
  * @param coordY the Y coordinates
  * @return if there is a collision it will return the - Object that it has collied with else it will return - NULL
  */
-AbstractEntity checkCollision(signed short int coordX, signed short int coordY) {
-	for (int i = 0; i < objectList.size(); i++) {
-		if ((objectList[i].getXPos() == coordX) && (objectList[i].getYPos() == coordY)) {
-			return (objectList[i]);
+AbstractEntity *const & LogicManager::retrieveObjectByCoordinates(signed short int coordX, signed short int coordY) {
+	EventManager eventManager;
+	const std::vector<AbstractEntity *> &objects = eventManager.getObjects();
+
+	for (auto object : objects) {
+		if (object->getXPos() == coordX && object->getYPos() == coordY) {
+			return object;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 /**
@@ -31,14 +34,4 @@ AbstractEntity checkCollision(signed short int coordX, signed short int coordY) 
  */
 
 int LogicManager::moveGhost(const Ghost &ghost) {
-	int direction = 0;
-	if (ghost.getSmartness() == 2) {
-		direction = smartMonsterMove(ghost);
-	}
-	return direction;
-}
-
-int LogicManager::smartMonsterMove(const Ghost &ghost) {
-	int direction = 0;
-	return direction;
 }
