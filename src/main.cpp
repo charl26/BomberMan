@@ -13,7 +13,9 @@ void TestEventManagerConstructorCoordinates();
 
 void TestEventManagerPerformCollision();
 
-int main(void) {
+bool testLogicManger();
+
+int main() {
     auto eventManager = new EventManager();
 
     TestDrawEventManagerConstructorObjects();
@@ -22,6 +24,8 @@ int main(void) {
     TestEventManagerConstructorCoordinates();
     std::cout << std::endl;
     TestEventManagerPerformCollision();
+
+    testLogicManger();
 
     delete (eventManager);
     return (0);
