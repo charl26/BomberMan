@@ -63,13 +63,21 @@ public:
 
     void setExplosions(const std::vector<Explosion *> &explosions);
 
-    const std::vector<PowerUP *> &getPowerups() const;
+    std::vector<PowerUP *> &getPowerups();
 
     void setPowerups(const std::vector<PowerUP *> &powerups);
 
-    void performCollision(Type colliderType, AbstractEntity &object);
+    void performCollision(Type colliderType, AbstractEntity *object);
 
-    PowerUP *getPowerUp(AbstractEntity &object);
+    void checkPossiblePlayerCollisions(AbstractEntity *object);
+
+    void applyPowerUp(AbstractEntity *object);
+
+    void nextLevel();
+
+    PowerUP *getPowerUp(AbstractEntity *object);
+
+    void eraseObject(AbstractEntity *object);
 
     void movePlayer(Direction dir);
 
@@ -96,8 +104,6 @@ public:
     void doBombCollision(AbstractEntity &collidedObject);
 
     void doBrickCollision(AbstractEntity &collidedObject);
-
-    void nextLevel();
 
     void resetLevel();
 
