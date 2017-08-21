@@ -10,7 +10,6 @@ bool testLogicManger() {
 	EventManager eventManager;
 	LogicManager logicManager;
 
-	const std::vector<AbstractEntity *> &objects = eventManager.getObjects();
 	AbstractEntity *testObject = logicManager.retrieveObjectByCoordinates(2, 0);
 	if (nullptr != testObject) {
 		std::cout << "TEST1 PASSED : COLLIDED WITH A Object" << std::endl;
