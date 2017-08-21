@@ -200,5 +200,3 @@ const std::vector<PowerUP *> &EventManager::getPowerups() const {
 void EventManager::setPowerups(const std::vector<PowerUP *> &powerups) {
     EventManager::powerups = powerups;
 }
-
-
