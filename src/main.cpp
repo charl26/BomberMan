@@ -3,10 +3,26 @@
 //
 
 #include <iostream>
+#include "EventManager.hpp"
 
-int main() {
+void TestDrawEventManagerConstructorObjects();
 
-	//TODO pass control to gameEngine for menu
-	std::cout << "Hello World!" << std::endl;
-	return (0);
+void TestEventManagerConstructor();
+
+void TestEventManagerConstructorCoordinates();
+
+void TestEventManagerPerformCollision();
+
+int main(void) {
+    auto eventManager = new EventManager();
+
+    TestDrawEventManagerConstructorObjects();
+    std::cout << std::endl;
+    TestEventManagerConstructor();
+    TestEventManagerConstructorCoordinates();
+    std::cout << std::endl;
+    TestEventManagerPerformCollision();
+
+    delete (eventManager);
+    return (0);
 }

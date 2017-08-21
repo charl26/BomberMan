@@ -14,10 +14,12 @@ short AbstractEntity::getYPos() const { return yPos; }
 
 void AbstractEntity::setYPos(short yPos) { AbstractEntity::yPos = yPos; }
 
-ActiveEffects AbstractEntity::getActiveEffects() const { return activeEffects; }
+const std::vector<Effect> &AbstractEntity::getActiveEffects() const {
+    return activeEffects;
+}
 
-void AbstractEntity::setActiveEffects(ActiveEffects activeEffects) { 
-	AbstractEntity::activeEffects = activeEffects;
+void AbstractEntity::setActiveEffects(const std::vector<Effect> &activeEffects) {
+    AbstractEntity::activeEffects = activeEffects;
 }
 
 Animation AbstractEntity::getAnimation() const { return animation; }
