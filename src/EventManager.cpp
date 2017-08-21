@@ -10,10 +10,8 @@ EventManager::EventManager() {
 }
 
 /**
- * @brief
- *
- * Reads the map then creates and stores objects in their respective lists according to the data found in the map.
- *
+ * @brief Reads the map then creates and stores objects in their respective lists according to the data found in the
+ * map.
  */
 
 void EventManager::generateObjects() {
@@ -193,10 +191,128 @@ void EventManager::setExplosions(const std::vector<Explosion *> &explosions) {
     EventManager::explosions = explosions;
 }
 
-const std::vector<PowerUP *> &EventManager::getPowerups() const {
+std::vector<PowerUP *> &EventManager::getPowerups() {
     return powerups;
 }
 
 void EventManager::setPowerups(const std::vector<PowerUP *> &powerups) {
     EventManager::powerups = powerups;
+}
+
+/**
+ * @brief Applies the effect of a collision between two objects.
+ * @param colliderType - The Object causing the collision.
+ * @param object - The Object being collided with.
+ */
+
+void EventManager::performCollision(Type colliderType, AbstractEntity *object) {
+    switch (colliderType) {
+        case PLAYER: {
+            checkPossiblePlayerCollisions(object);
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+}
+
+/**
+ * @brief Checks possible objects that the player can collide with. If the player collided with any of these possible
+ * objects, the collision is performed.
+ * @param object - The object being collided with.
+ */
+
+void EventManager::checkPossiblePlayerCollisions(AbstractEntity *object) {
+    switch (object->getType()) {
+        case BOMBCOUNTPWR: {
+            applyPowerUp(object);
+            break;
+        }
+        case FLAMESIZEPWR: {
+            applyPowerUp(object);
+            break;
+        }
+        case PLAYERSPEEDPWR: {
+            applyPowerUp(object);
+        }
+        case DOOR: {
+            nextLevel();
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+}
+
+/**
+ * @brief Applies the effect of a power up to the player, then deletes the power up from the object list.
+ * @param object - The object being collided with.
+ */
+
+void EventManager::applyPowerUp(AbstractEntity *object) {
+    std::vector<Effect> activeEffects;
+    PowerUP *powerUP;
+
+    activeEffects = bomberman->getActiveEffects();
+    powerUP = getPowerUp(object);
+
+    if (powerUP != nullptr) {
+        activeEffects.push_back(powerUP->getEffect());
+        bomberman->setActiveEffects(activeEffects);
+        eraseObject(dynamic_cast<AbstractEntity *>(powerUP));
+    } else {
+        // TODO: Throw error.
+    }
+}
+
+/**
+ * @brief If all the enemies on the map are dead, then the player is taken to the next level, otherwise, nothing is
+ * done.
+ */
+
+void EventManager::nextLevel() {
+    if (ghosts.empty()) {
+        // TODO: Load next level.
+    }
+}
+
+/**
+ * @brief Retrieves a reference to the object being collided with.
+ * @param object - The object being collided with.
+ * @return - A pointer to a power up object.
+ */
+
+PowerUP *EventManager::getPowerUp(AbstractEntity *object) {
+    for (int i{}; i < powerups.size(); i++) {
+        if (powerups[i]->getXPos() == object->getXPos() && powerups[i]->getYPos() == object->getYPos()) {
+            return (powerups[i]);
+        }
+    }
+    return (nullptr);
+}
+
+/**
+ * @brief Searches for an object in the powerups and objects lists by coordinates, then deletes it from memory and
+ * erases it from the lists and map.
+ * @param object - The object to be deleted.
+ */
+
+void EventManager::eraseObject(AbstractEntity *object) {
+    delete (object);
+
+    for (int i{}; i < powerups.size(); i++) {
+        if (powerups[i]->getXPos() == object->getXPos() && powerups[i]->getYPos() == object->getYPos()) {
+            powerups.erase(powerups.begin() + i);
+        }
+    }
+
+    for (int i{}; i < objects.size(); i++) {
+        if (objects[i]->getXPos() == object->getXPos() && objects[i]->getYPos() == object->getYPos()) {
+            objects.erase(objects.begin() + i);
+        }
+    }
+
+    map[object->getXPos()][object->getYPos()] = EMPTYTILE;
 }

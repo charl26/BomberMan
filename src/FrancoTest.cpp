@@ -6,10 +6,8 @@
 #include "EventManager.hpp"
 
 /**
- * @brief
- *
- * Iterates through the map and draws every object with ascii characters to provide a visual representation of the
- * 2D array map.
+ * @brief Iterates through the map and draws every object with ascii characters to provide a visual representation of
+ * the 2D array map.
  */
 
 void TestDrawEventManagerConstructorObjects() {
@@ -78,14 +76,11 @@ void TestDrawEventManagerConstructorObjects() {
         }
         std::cout << std::endl;
     }
-    std::cout << std::endl;
     delete (eventManager);
 }
 
 /**
- * @brief
- *
- * Tests the objects in the objects list against the map objects by reading the map and
+ * @brief Tests the objects in the objects list against the map objects by reading the map and
  * iterating through the objects list the same way as when objects were created. Then it tries to match the map
  * object types to the object's type. If they do not match, the test fails.
  */
@@ -177,9 +172,7 @@ void TestEventManagerConstructor() {
 }
 
 /**
- * @brief
- *
- * Tests the coordinates of every object in the objects list against the map coordinates by reading the map and
+ * @brief Tests the coordinates of every object in the objects list against the map coordinates by reading the map and
  * iterating through the objects list the same way as when objects were created. Then it tries to match the map
  * x and y to the object's x and y. If they do not match, the test fails.
  */
@@ -279,4 +272,74 @@ void TestEventManagerConstructorCoordinates() {
 
     std::cout << "Object coordinate Test: " << coordPass << std::endl;
     delete (eventManager);
+}
+
+/**
+ * @brief Tests collision between all objects, making sure that the correct actions are taken when a collision occurs.
+ */
+
+void TestEventManagerPerformCollision() {
+    auto *eventManager = new EventManager();
+    bool playerPowerUpCollisionResult;
+
+    /*
+     * PLAYER COLLISION WITH BOMB COUNT POWER UP TEST
+     */
+
+    auto *bombCountPowerUp = new PowerUP();
+
+    bombCountPowerUp->setType(BOMBCOUNTPWR);
+    bombCountPowerUp->setAnimation(POWERANIM);
+    bombCountPowerUp->setEffect(BOMCOUNTINC);
+    bombCountPowerUp->setXPos(15);
+    bombCountPowerUp->setYPos(15);
+
+    eventManager->getPowerups().push_back(bombCountPowerUp);
+    eventManager->performCollision(PLAYER, bombCountPowerUp);
+
+    if (!(playerPowerUpCollisionResult = (eventManager->getPowerUp(bombCountPowerUp) == nullptr))) {
+        std::cout << "Collision: Player -> Power up | Result: " << playerPowerUpCollisionResult << std::endl;
+        return;
+    }
+
+    /*
+    * PLAYER COLLISION WITH FLAME SIZE POWER UP TEST
+    */
+
+    auto *flameSizePowerUp = new PowerUP();
+
+    flameSizePowerUp->setType(FLAMESIZEPWR);
+    flameSizePowerUp->setAnimation(POWERANIM);
+    flameSizePowerUp->setEffect(FLAMESIZEINC);
+    flameSizePowerUp->setXPos(16);
+    flameSizePowerUp->setYPos(16);
+
+    eventManager->getPowerups().push_back(flameSizePowerUp);
+    eventManager->performCollision(PLAYER, flameSizePowerUp);
+
+    if (!(playerPowerUpCollisionResult = (eventManager->getPowerUp(flameSizePowerUp) == nullptr))) {
+        std::cout << "Collision: Player -> Power up | Result: " << playerPowerUpCollisionResult << std::endl;
+        return;
+    }
+
+    /*
+    * PLAYER COLLISION WITH PLAYER SPEED POWER UP TEST
+    */
+
+    auto *playerSpeedPowerUp = new PowerUP();
+
+    playerSpeedPowerUp->setType(PLAYERSPEEDPWR);
+    playerSpeedPowerUp->setAnimation(POWERANIM);
+    playerSpeedPowerUp->setEffect(PLAYERSPEEDINC);
+    playerSpeedPowerUp->setXPos(17);
+    playerSpeedPowerUp->setYPos(17);
+
+    eventManager->getPowerups().push_back(playerSpeedPowerUp);
+    eventManager->performCollision(PLAYER, playerSpeedPowerUp);
+
+    if (!(playerPowerUpCollisionResult = (eventManager->getPowerUp(playerSpeedPowerUp) == nullptr))) {
+        std::cout << "Collision: Player -> Power up | Result: " << playerPowerUpCollisionResult << std::endl;
+        return;
+    }
+    std::cout << "Collision: Player -> Power up | Result: " << playerPowerUpCollisionResult << std::endl;
 }
