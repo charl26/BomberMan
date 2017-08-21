@@ -77,8 +77,6 @@ public:
 
     PowerUP *getPowerUp(AbstractEntity *object);
 
-    void eraseObject(AbstractEntity *object);
-
     void movePlayer(Direction dir);
 
     void eraseBomb(AbstractEntity &collidedObject);
@@ -89,7 +87,7 @@ public:
 
     void eraseGhost(AbstractEntity &collidedObject);
 
-    void erasePowerUP(AbstractEntity &collidedObject);
+    void erasePowerUP(AbstractEntity *collidedObject);
 
     Bomb *getBomb(AbstractEntity &collidedObject);
 

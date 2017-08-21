@@ -261,7 +261,7 @@ void EventManager::applyPowerUp(AbstractEntity *object) {
     if (powerUP != nullptr) {
         activeEffects.push_back(powerUP->getEffect());
         bomberman->setActiveEffects(activeEffects);
-        eraseObject(dynamic_cast<AbstractEntity *>(powerUP));
+        erasePowerUP(dynamic_cast<AbstractEntity *>(powerUP));
     } else {
         // TODO: Throw error.
     }
@@ -299,7 +299,8 @@ PowerUP *EventManager::getPowerUp(AbstractEntity *object) {
  * @param object - The object to be deleted.
  */
 
-void EventManager::eraseObject(AbstractEntity *object) {
+void EventManager::erasePowerUP(AbstractEntity *object) {
+    map[object->getXPos()][object->getYPos()] = EMPTYTILE;
     delete (object);
 
     for (int i{}; i < powerups.size(); i++) {
@@ -313,6 +314,4 @@ void EventManager::eraseObject(AbstractEntity *object) {
             objects.erase(objects.begin() + i);
         }
     }
-
-    map[object->getXPos()][object->getYPos()] = EMPTYTILE;
 }
