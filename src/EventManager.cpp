@@ -509,4 +509,3 @@ Brick *EventManager::getBrick(AbstractEntity *object) {
 
 void EventManager::resetLevel(short signed int level) {
     // TODO: Load original map form file.
-}
