@@ -4,16 +4,14 @@
 
 #include "PowerUP.hpp"
 
-PowerUP::~PowerUP() {
-
-}
+PowerUP::~PowerUP() {}
 
 PowerUP::PowerUP() {}
 
-EFFECT PowerUP::getEffect() const {
-	return effect;
+Effect PowerUP::getEffect() const {
+    return effect;
 }
 
-void PowerUP::setEffect(EFFECT effect) {
-	PowerUP::effect = effect;
+void PowerUP::setEffect(Effect effect) {
+    PowerUP::effect = effect;
 }

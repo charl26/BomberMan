@@ -28,6 +28,29 @@ void Bomberman::setRemote(bool remote) {
     Bomberman::remote = remote;
 }
 
-Bomberman::Bomberman(short bombCount, short lives, bool remote) : bombCount(bombCount), lives(lives), remote(remote) {}
+Bomberman::Bomberman(short bombCount, short lives, bool remote, signed short int xBombRange,
+                     signed short int yBombRange) {
+    Bomberman::bombCount = bombCount;
+    Bomberman::lives = lives;
+    Bomberman::remote = remote;
+    Bomberman::xBombRange = xBombRange;
+    Bomberman::yBombRange = yBombRange;
+}
 
 Bomberman::~Bomberman() {}
+
+short Bomberman::getXBombRange() const {
+    return xBombRange;
+}
+
+void Bomberman::setXBombRange(short xBmbRange) {
+    Bomberman::xBombRange = xBmbRange;
+}
+
+short Bomberman::getYBombRange() const {
+    return yBombRange;
+}
+
+void Bomberman::setYBombRange(short yBombRange) {
+    Bomberman::yBombRange = yBombRange;
+}

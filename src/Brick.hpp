@@ -7,9 +7,9 @@
 
 #include "AbstractEntity.hpp"
 
-class Brick : public AbstractEntity{
+class Brick : public AbstractEntity {
 private:
-    bool        powerUp;
+    bool    powerUp;
 
 public:
     Brick(bool powerUp);

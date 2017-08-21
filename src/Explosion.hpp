@@ -9,8 +9,8 @@
 
 class Explosion : public AbstractEntity {
 private:
-    signed short int    xRange;
-    signed short int    yRange;
+    signed short int xRange;
+    signed short int yRange;
 
 public:
     Explosion(signed short int xRange, signed short int yRange);
