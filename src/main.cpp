@@ -24,7 +24,7 @@ int main() {
     TestEventManagerConstructorCoordinates();
     std::cout << std::endl;
     TestEventManagerPerformCollision();
-
+    std::cout << std::endl;
     testLogicManger();
 
     delete (eventManager);
