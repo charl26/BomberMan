@@ -370,7 +370,7 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Ghost -> Power up | Result: FAIL" << std::endl;
     }
 
-    delete(gBombCountPowerUp);
+    delete (gBombCountPowerUp);
     eventManager->erasePowerUP(gBombCountPowerUp);
 
     /*
@@ -392,7 +392,7 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Ghost -> Power up | Result: FAIL" << std::endl;
     }
 
-    delete(gFlameSizePowerUp);
+    delete (gFlameSizePowerUp);
     eventManager->erasePowerUP(gFlameSizePowerUp);
 
     /*
@@ -420,7 +420,7 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Ghost -> Power up | Result: PASS" << std::endl;
     }
 
-    delete(gPlayerSpeedPowerUp);
+    delete (gPlayerSpeedPowerUp);
     eventManager->erasePowerUP(gPlayerSpeedPowerUp);
 
     /*
@@ -442,7 +442,7 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Explosion -> Power up | Result: FAIL" << std::endl;
     }
 
-    delete(eBombCountPowerUp);
+    delete (eBombCountPowerUp);
     eventManager->erasePowerUP(eBombCountPowerUp);
 
     /*
@@ -464,7 +464,7 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Explosion -> Power up | Result: FAIL" << std::endl;
     }
 
-    delete(eFlameSizePowerUp);
+    delete (eFlameSizePowerUp);
     eventManager->erasePowerUP(eFlameSizePowerUp);
 
     /*
@@ -492,6 +492,6 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Explosion -> Power up | Result: PASS" << std::endl;
     }
 
-    delete(ePlayerSpeedPowerUp);
+    delete (ePlayerSpeedPowerUp);
     eventManager->erasePowerUP(ePlayerSpeedPowerUp);
 }
