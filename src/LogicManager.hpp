@@ -17,8 +17,6 @@ public:
 	AbstractEntity *const & retrieveObjectByCoordinates(signed short int coordX, signed short int coordY);
 	void moveExplosion();
 
-	//int smartMonsterMove(const Ghost &ghost);
 };
-
 
 #endif
