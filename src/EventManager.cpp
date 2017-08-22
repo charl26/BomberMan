@@ -199,6 +199,14 @@ void EventManager::setPowerups(const std::vector<PowerUP *> &powerups) {
     EventManager::powerups = powerups;
 }
 
+short EventManager::getLevel() const {
+    return level;
+}
+
+void EventManager::setLevel(short level) {
+    EventManager::level = level;
+}
+
 /**
  * @brief Applies the effect of a collision between two objects.
  * @param colliderType - The Object causing the collision.
@@ -210,6 +218,12 @@ void EventManager::performCollision(Type colliderType, AbstractEntity *object) {
         case PLAYER: {
             checkPossiblePlayerCollisions(object);
             break;
+        }
+        case GHOST: {
+            checkPossibleGhostCollisions(object);
+        }
+        case EXPLOSION: {
+            checkPossibleExplosionCollisions(object);
         }
         default: {
             break;
@@ -235,6 +249,7 @@ void EventManager::checkPossiblePlayerCollisions(AbstractEntity *object) {
         }
         case PLAYERSPEEDPWR: {
             applyPowerUp(object);
+            break;
         }
         case DOOR: {
             nextLevel();
@@ -244,6 +259,94 @@ void EventManager::checkPossiblePlayerCollisions(AbstractEntity *object) {
             break;
         }
     }
+}
+
+/**
+ * @brief Checks possible objects that ghosts can collide with. If a ghost collided with any of these possible
+ * objects, the collision is performed.
+ * @param object - The object being collided with.
+ */
+
+void EventManager::checkPossibleGhostCollisions(AbstractEntity *object) {
+    switch (object->getType()) {
+        case PLAYER: {
+            killPlayer();
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+}
+
+/**
+ * @brief Checks possible objects that explosions can collide with. If an explosion collided with any of these possible
+ * objects, the collision is performed.
+ * @param object - The object being collided with.
+ */
+
+void EventManager::checkPossibleExplosionCollisions(AbstractEntity *object) {
+    switch (object->getType()) {
+        case PLAYER: {
+            killPlayer();
+            break;
+        }
+        case GHOST: {
+            eraseGhost(object);
+            break;
+        }
+        case BOMB: {
+            auto *explosion = new Explosion(bomberman->getXBombRange(), bomberman->getYBombRange());
+
+            explosion->setXPos(object->getXPos());
+            explosion->setYPos(object->getYPos());
+            explosion->setType(EXPLOSION);
+            explosion->setAnimation(EXPLODEANIM);
+
+            eraseBomb(object);
+
+            explosions.push_back(explosion);
+            objects.push_back(dynamic_cast<AbstractEntity *>(explosion));
+            break;
+        }
+        case BRICK: {
+            eraseBrick(object);
+            break;
+        }
+        case BRICKWITHPWR: {
+            Brick *brick = getBrick(dynamic_cast<AbstractEntity *>(object));
+            PowerUP *powerUP = getPowerUp(dynamic_cast<AbstractEntity *>(object));
+
+            eraseBrickWithPowerUp(powerUP->getType(), brick);
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+}
+
+/**
+ * @brief Deducts 1 from the players life, then resets the level to it's original state.
+ */
+
+void EventManager::killPlayer() {
+    if (bomberman->getLives() > 0) {
+        bomberman->setLives(static_cast<signed short int>(bomberman->getLives() - 1));
+    }
+
+    resetLevel(level);
+}
+
+/**
+ * @brief Swaps the brick on the map with a power up, then erases the brick from it's list and the objects list.
+ * @param type - The type of the power up that the brick holds.
+ * @param brick - A reference to the brick that holds the power up.
+ */
+
+void EventManager::eraseBrickWithPowerUp(Type type, Brick *brick) {
+    map[brick->getXPos()][brick->getYPos()] = type;
+    eraseBrick(dynamic_cast<AbstractEntity *>(brick));
 }
 
 /**
@@ -315,3 +418,94 @@ void EventManager::erasePowerUP(AbstractEntity *object) {
         }
     }
 }
+
+/**
+ * @brief Swaps out the bomb on the map data with an explosion, then deletes the bomb from the bombs and objects list.
+ * @param object - A reference to the bomb in the objects list.
+ */
+
+void EventManager::eraseBomb(AbstractEntity *object) {
+    map[object->getXPos()][object->getYPos()] = EXPLOSION;
+    delete (object);
+
+    for (int i{}; i < bombs.size(); i++) {
+        if (bombs[i]->getXPos() == object->getXPos() && bombs[i]->getYPos() == object->getYPos()) {
+            bombs.erase(bombs.begin() + i);
+        }
+    }
+
+    for (int i{}; i < objects.size(); i++) {
+        if (objects[i]->getXPos() == object->getXPos() && objects[i]->getYPos() == object->getYPos()) {
+            objects.erase(objects.begin() + i);
+        }
+    }
+}
+
+/**
+ * @brief Swaps out the brick on the map data with an empty tile, then deletes the brick from the bricks and objects
+ * list.
+ * @param object - A reference to the brick in the objects list.
+ */
+
+void EventManager::eraseBrick(AbstractEntity *object) {
+    map[object->getXPos()][object->getYPos()] = EMPTYTILE;
+    delete (object);
+
+    for (int i{}; i < bricks.size(); i++) {
+        if (bricks[i]->getXPos() == object->getXPos() && bricks[i]->getYPos() == object->getYPos()) {
+            bricks.erase(bricks.begin() + i);
+        }
+    }
+
+    for (int i{}; i < objects.size(); i++) {
+        if (objects[i]->getXPos() == object->getXPos() && objects[i]->getYPos() == object->getYPos()) {
+            objects.erase(objects.begin() + i);
+        }
+    }
+}
+
+/**
+ * @brief Swaps out the ghost on the map data with an empty tile, then deletes the ghost from the ghosts and objects
+ * list.
+ * @param object - A reference to the ghost in the objects list.
+ */
+
+void EventManager::eraseGhost(AbstractEntity *object) {
+    map[object->getXPos()][object->getYPos()] = EMPTYTILE;
+    delete (object);
+
+    for (int i{}; i < ghosts.size(); i++) {
+        if (ghosts[i]->getXPos() == object->getXPos() && ghosts[i]->getYPos() == object->getYPos()) {
+            ghosts.erase(ghosts.begin() + i);
+        }
+    }
+
+    for (int i{}; i < objects.size(); i++) {
+        if (objects[i]->getXPos() == object->getXPos() && objects[i]->getYPos() == object->getYPos()) {
+            objects.erase(objects.begin() + i);
+        }
+    }
+}
+
+/**
+ * @brief Retrieves a reference to a brick object from the bricks list that matches the passed object's coordinates.
+ * @param object - A reference to a brick in the objects list.
+ * @return - A pointer to the brick object.
+ */
+
+Brick *EventManager::getBrick(AbstractEntity *object) {
+    for (int i{}; i < bricks.size(); i++) {
+        if (bricks[i]->getXPos() == object->getXPos() && bricks[i]->getYPos() == object->getYPos()) {
+            return (bricks[i]);
+        }
+    }
+    return (nullptr);
+}
+
+/**
+ * @brief Resets the level to it's original state by loading the original map from it's file.
+ * @param level - The level that the game is currently on.
+ */
+
+void EventManager::resetLevel(short signed int level) {
+    // TODO: Load original map form file.
