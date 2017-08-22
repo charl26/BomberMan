@@ -369,7 +369,7 @@ void TestEventManagerPerformCollision() {
     if ((ghostPowerUpCollisionResult = (eventManager->getPowerUp(gBombCountPowerUp) == nullptr))) {
         std::cout << "Collision: Ghost -> Power up | Result: FAIL" << std::endl;
     }
-  
+
     delete (gBombCountPowerUp);
     eventManager->erasePowerUP(gBombCountPowerUp);
 
