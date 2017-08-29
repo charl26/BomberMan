@@ -534,9 +534,9 @@ Ghost *EventManager::getGhost(AbstractEntity *object) {
 }
 
 Bomb *EventManager::getBomb(AbstractEntity *object) {
-    for (int i{}; i < bombs.size(); i++) {
-        if (bombs[i]->getXPos() == object->getXPos() && bombs[i]->getYPos() == object->getYPos()) {
-            return (bombs[i]);
+    for (auto bomb : bombs) {
+        if (bomb->getXPos() == object->getXPos() && bomb->getYPos() == object->getYPos()) {
+            return (bomb);
         }
     }
     return (nullptr);
