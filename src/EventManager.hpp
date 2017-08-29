@@ -48,15 +48,15 @@ public:
 
     void setObjects(const std::vector<AbstractEntity *> &objects);
 
-    const std::vector<Ghost *> &getGhosts() const;
+    std::vector<Ghost *> &getGhosts();
 
     void setGhosts(const std::vector<Ghost *> &ghosts);
 
-    const std::vector<Bomb *> &getBombs() const;
+    std::vector<Bomb *> &getBombs();
 
     void setBombs(const std::vector<Bomb *> &bombs);
 
-    const std::vector<Brick *> &getBricks() const;
+    std::vector<Brick *> &getBricks();
 
     void setBricks(const std::vector<Brick *> &bricks);
 
@@ -98,13 +98,13 @@ public:
 
     void erasePowerUP(AbstractEntity *collidedObject);
 
-    Bomb *getBomb(AbstractEntity &collidedObject);
+    Bomb *getBomb(AbstractEntity *object);
 
     Brick *getBrick(AbstractEntity *object);
 
     Explosion *getExplosion(AbstractEntity &collidedObject);
 
-    Ghost *getGhost(AbstractEntity &collidedObject);
+    Ghost *getGhost(AbstractEntity *object);
 
     void doBombCollision(AbstractEntity &collidedObject);
 

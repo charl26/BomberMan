@@ -61,14 +61,23 @@ void EventManager::generateObjects() {
                 }
                 case BRICKWITHPWR: {
                     auto *brick = new Brick(true);
+                    auto *powerUp = new PowerUP();
 
                     brick->setXPos(static_cast<signed short int>(x));
                     brick->setYPos(static_cast<signed short int>(y));
                     brick->setAnimation(BRICKANIM);
                     brick->setType(BRICKWITHPWR);
 
+                    powerUp->setXPos(static_cast<signed short int>(x));
+                    powerUp->setYPos(static_cast<signed short int>(y));
+                    powerUp->setType(BOMBCOUNTPWR);
+                    powerUp->setEffect(BOMCOUNTINC);
+                    powerUp->setAnimation(POWERANIM);
+
                     bricks.push_back(brick);
+                    powerups.push_back(powerUp);
                     objects.push_back(dynamic_cast<AbstractEntity *>(brick));
+                    objects.push_back(dynamic_cast<AbstractEntity *>(powerUp));
                     break;
                 }
                 case SOLIDBRICK: {
@@ -159,7 +168,7 @@ void EventManager::setObjects(const std::vector<AbstractEntity *> &objects) {
     EventManager::objects = objects;
 }
 
-const std::vector<Ghost *> &EventManager::getGhosts() const {
+std::vector<Ghost *> &EventManager::getGhosts() {
     return ghosts;
 }
 
@@ -167,7 +176,7 @@ void EventManager::setGhosts(const std::vector<Ghost *> &ghosts) {
     EventManager::ghosts = ghosts;
 }
 
-const std::vector<Bomb *> &EventManager::getBombs() const {
+std::vector<Bomb *> &EventManager::getBombs() {
     return bombs;
 }
 
@@ -175,7 +184,7 @@ void EventManager::setBombs(const std::vector<Bomb *> &bombs) {
     EventManager::bombs = bombs;
 }
 
-const std::vector<Brick *> &EventManager::getBricks() const {
+std::vector<Brick *> &EventManager::getBricks() {
     return bricks;
 }
 
@@ -221,9 +230,11 @@ void EventManager::performCollision(Type colliderType, AbstractEntity *object) {
         }
         case GHOST: {
             checkPossibleGhostCollisions(object);
+            break;
         }
         case EXPLOSION: {
             checkPossibleExplosionCollisions(object);
+            break;
         }
         default: {
             break;
@@ -333,6 +344,8 @@ void EventManager::checkPossibleExplosionCollisions(AbstractEntity *object) {
 void EventManager::killPlayer() {
     if (bomberman->getLives() > 0) {
         bomberman->setLives(static_cast<signed short int>(bomberman->getLives() - 1));
+    } else {
+        // TODO: End the game.
     }
 
     resetLevel(level);
@@ -377,7 +390,7 @@ void EventManager::applyPowerUp(AbstractEntity *object) {
 
 void EventManager::nextLevel() {
     if (ghosts.empty()) {
-        // TODO: Load next level.
+        nextLevel();
     }
 }
 
@@ -388,9 +401,9 @@ void EventManager::nextLevel() {
  */
 
 PowerUP *EventManager::getPowerUp(AbstractEntity *object) {
-    for (int i{}; i < powerups.size(); i++) {
-        if (powerups[i]->getXPos() == object->getXPos() && powerups[i]->getYPos() == object->getYPos()) {
-            return (powerups[i]);
+    for (auto powerup : powerups) {
+        if (powerup->getXPos() == object->getXPos() && powerup->getYPos() == object->getYPos()) {
+            return (powerup);
         }
     }
     return (nullptr);
@@ -494,9 +507,9 @@ void EventManager::eraseGhost(AbstractEntity *object) {
  */
 
 Brick *EventManager::getBrick(AbstractEntity *object) {
-    for (int i{}; i < bricks.size(); i++) {
-        if (bricks[i]->getXPos() == object->getXPos() && bricks[i]->getYPos() == object->getYPos()) {
-            return (bricks[i]);
+    for (auto brick : bricks) {
+        if (brick->getXPos() == object->getXPos() && brick->getYPos() == object->getYPos()) {
+            return (brick);
         }
     }
     return (nullptr);
@@ -509,3 +522,22 @@ Brick *EventManager::getBrick(AbstractEntity *object) {
 
 void EventManager::resetLevel(short signed int level) {
     // TODO: Load original map form file.
+}
+
+Ghost *EventManager::getGhost(AbstractEntity *object) {
+    for (auto ghost : ghosts) {
+        if (ghost->getXPos() == object->getXPos() && ghost->getYPos() == object->getYPos()) {
+            return (ghost);
+        }
+    }
+    return (nullptr);
+}
+
+Bomb *EventManager::getBomb(AbstractEntity *object) {
+    for (auto bomb : bombs) {
+        if (bomb->getXPos() == object->getXPos() && bomb->getYPos() == object->getYPos()) {
+            return (bomb);
+        }
+    }
+    return (nullptr);
+}

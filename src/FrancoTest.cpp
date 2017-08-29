@@ -123,6 +123,7 @@ void TestEventManagerConstructor() {
                     if (eventManager->getObjects()[i]->getType() != BRICKWITHPWR) {
                         objectPass = false;
                     }
+                    i++;
                     break;
                 }
                 case SOLIDBRICK: {
@@ -225,6 +226,7 @@ void TestEventManagerConstructorCoordinates() {
                         eventManager->getObjects()[i]->getYPos() != y) {
                         coordPass = false;
                     }
+                    i++;
                     break;
                 }
                 case SOLIDBRICK: {
@@ -370,9 +372,6 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Ghost -> Power up | Result: FAIL" << std::endl;
     }
 
-    delete (gBombCountPowerUp);
-    eventManager->erasePowerUP(gBombCountPowerUp);
-
     /*
     * GHOST COLLISION WITH FLAME SIZE POWER UP TEST
     */
@@ -391,9 +390,6 @@ void TestEventManagerPerformCollision() {
     if ((ghostPowerUpCollisionResult = (eventManager->getPowerUp(gFlameSizePowerUp) == nullptr))) {
         std::cout << "Collision: Ghost -> Power up | Result: FAIL" << std::endl;
     }
-
-    delete (gFlameSizePowerUp);
-    eventManager->erasePowerUP(gFlameSizePowerUp);
 
     /*
     * GHOST COLLISION WITH PLAYER SPEED POWER UP TEST
@@ -419,9 +415,6 @@ void TestEventManagerPerformCollision() {
     } else {
         std::cout << "Collision: Ghost -> Power up | Result: PASS" << std::endl;
     }
-
-    delete (gPlayerSpeedPowerUp);
-    eventManager->erasePowerUP(gPlayerSpeedPowerUp);
 
     /*
     * EXPLOSION COLLISION WITH BOMB COUNT POWER UP TEST
@@ -486,69 +479,123 @@ void TestEventManagerPerformCollision() {
         std::cout << "Collision: Explosion -> Power up | Result: PASS" << std::endl;
     }
 
-    eBombCountPowerUp->setType(BOMBCOUNTPWR);
-    eBombCountPowerUp->setAnimation(POWERANIM);
-    eBombCountPowerUp->setEffect(BOMCOUNTINC);
-    eBombCountPowerUp->setXPos(15);
-    eBombCountPowerUp->setYPos(15);
-
-    eventManager->getPowerups().push_back(eBombCountPowerUp);
-    eventManager->performCollision(EXPLOSION, eBombCountPowerUp);
-
-    if ((explosionPowerUpCollisionResult = (eventManager->getPowerUp(eBombCountPowerUp) == nullptr))) {
-        std::cout << "Collision: Explosion -> Power up | Result: FAIL" << std::endl;
-    }
-
-    delete (eBombCountPowerUp);
-    eventManager->erasePowerUP(eBombCountPowerUp);
-
     /*
-    * EXPLOSION COLLISION WITH FLAME SIZE POWER UP TEST
+    * GHOST COLLISION WITH PLAYER TEST
     */
 
-    auto *eFlameSizePowerUp = new PowerUP();
+    eventManager->getBomberman()->setType(PLAYER);
+    eventManager->getBomberman()->setAnimation(PLAYERANIM);
+    eventManager->getBomberman()->setXPos(150);
+    eventManager->getBomberman()->setYPos(150);
 
-    eFlameSizePowerUp->setType(FLAMESIZEPWR);
-    eFlameSizePowerUp->setAnimation(POWERANIM);
-    eFlameSizePowerUp->setEffect(FLAMESIZEINC);
-    eFlameSizePowerUp->setXPos(16);
-    eFlameSizePowerUp->setYPos(16);
+    eventManager->performCollision(GHOST, eventManager->getBomberman());
 
-    eventManager->getPowerups().push_back(eFlameSizePowerUp);
-    eventManager->performCollision(EXPLOSION, eFlameSizePowerUp);
-
-    if ((explosionPowerUpCollisionResult = (eventManager->getPowerUp(eFlameSizePowerUp) == nullptr))) {
-        std::cout << "Collision: Explosion -> Power up | Result: FAIL" << std::endl;
-    }
-
-    delete (eFlameSizePowerUp);
-    eventManager->erasePowerUP(eFlameSizePowerUp);
-
-    /*
-    * EXPLOSION COLLISION WITH PLAYER SPEED POWER UP TEST
-    */
-
-    auto *ePlayerSpeedPowerUp = new PowerUP();
-
-    ePlayerSpeedPowerUp->setType(PLAYERSPEEDPWR);
-    ePlayerSpeedPowerUp->setAnimation(POWERANIM);
-    ePlayerSpeedPowerUp->setEffect(PLAYERSPEEDINC);
-    ePlayerSpeedPowerUp->setXPos(17);
-    ePlayerSpeedPowerUp->setYPos(17);
-
-    eventManager->getPowerups().push_back(ePlayerSpeedPowerUp);
-    eventManager->performCollision(EXPLOSION, ePlayerSpeedPowerUp);
-
-    if ((explosionPowerUpCollisionResult = (eventManager->getPowerUp(ePlayerSpeedPowerUp) == nullptr))) {
-        std::cout << "Collision: Explosion -> Power up | Result: FAIL" << std::endl;
-    }
-
-    if (explosionPowerUpCollisionResult) {
-        std::cout << "Collision: Explosion -> Power up | Result: FAIL" << std::endl;
+    if (eventManager->getBomberman()->getLives() == 2) {
+        std::cout << "Collision: Ghost -> Player | Result: PASS" << std::endl;
     } else {
-        std::cout << "Collision: Explosion -> Power up | Result: PASS" << std::endl;
+        std::cout << "Collision: Ghost -> Player | Result: FAIL" << std::endl;
     }
 
-    delete (ePlayerSpeedPowerUp);
-    eventManager->erasePowerUP(ePlayerSpeedPowerUp);
+    /*
+    * EXPLOSION COLLISION WITH PLAYER TEST
+    */
+
+    eventManager->getBomberman()->setLives(3);
+    eventManager->getBomberman()->setType(PLAYER);
+    eventManager->getBomberman()->setAnimation(PLAYERANIM);
+    eventManager->getBomberman()->setXPos(15);
+    eventManager->getBomberman()->setYPos(15);
+
+    eventManager->performCollision(EXPLOSION, eventManager->getBomberman());
+
+    if (eventManager->getBomberman()->getLives() == 2) {
+        std::cout << "Collision: Explosion -> Player | Result: PASS" << std::endl;
+    } else {
+        std::cout << "Collision: Explosion -> Player | Result: FAIL" << std::endl;
+    }
+
+    /*
+    * EXPLOSION COLLISION WITH GHOST TEST
+    */
+
+    auto *eGhost = new Ghost();
+    bool explosionwithGhostResult;
+
+    eGhost->setType(GHOST);
+    eGhost->setAnimation(GHOSTANIM);
+    eGhost->setSmartness(0);
+    eGhost->setXPos(16);
+    eGhost->setYPos(16);
+
+    eventManager->getGhosts().push_back(eGhost);
+    eventManager->performCollision(EXPLOSION, eGhost);
+
+    if ((explosionwithGhostResult = (eventManager->getGhost(eGhost) == nullptr))) {
+        std::cout << "Collision: Explosion -> Ghost | Result: PASS" << std::endl;
+    } else {
+        std::cout << "Collision: Explosion -> Ghost | Result: FAIL" << std::endl;
+    }
+
+    /*
+    * EXPLOSION COLLISION WITH BOMB TEST
+    */
+
+    auto *eBomb = new Bomb(3);
+    bool explosionwithBombResult;
+
+    eBomb->setType(BOMB);
+    eBomb->setAnimation(BOMBANIM);
+    eBomb->setXPos(16);
+    eBomb->setYPos(16);
+
+    eventManager->getBombs().push_back(eBomb);
+    eventManager->performCollision(EXPLOSION, eBomb);
+
+    if ((explosionwithBombResult = (eventManager->getBomb(eBomb) == nullptr))) {
+        std::cout << "Collision: Explosion -> Bomb | Result: PASS" << std::endl;
+    } else {
+        std::cout << "Collision: Explosion -> Bomb | Result: FAIL" << std::endl;
+    }
+
+    /*
+    * EXPLOSION COLLISION WITH BRICK TEST
+    */
+
+    auto *eBrick = new Brick(false);
+    bool explosionwithBrickResult;
+
+    eBrick->setType(BRICK);
+    eBrick->setAnimation(BRICKANIM);
+    eBrick->setXPos(16);
+    eBrick->setYPos(16);
+
+    eventManager->getBricks().push_back(eBrick);
+    eventManager->performCollision(EXPLOSION, eBrick);
+
+    if ((explosionwithBrickResult = (eventManager->getBrick(eBrick) == nullptr))) {
+        std::cout << "Collision: Explosion -> Brick | Result: PASS" << std::endl;
+    } else {
+        std::cout << "Collision: Explosion -> Brick | Result: FAIL" << std::endl;
+    }
+
+    /*
+    * EXPLOSION COLLISION WITH BRICK WITH POWER UP TEST
+    */
+
+    auto *eBrickWP = new Brick(true);
+    bool explosionwithBrickWPResult;
+
+    eBrickWP->setType(BRICKWITHPWR);
+    eBrickWP->setAnimation(BRICKANIM);
+    eBrickWP->setXPos(16);
+    eBrickWP->setYPos(16);
+
+    eventManager->getBricks().push_back(eBrickWP);
+    eventManager->performCollision(EXPLOSION, eBrickWP);
+
+    if ((explosionwithBrickWPResult = (eventManager->getBrick(eBrickWP) == nullptr))) {
+        std::cout << "Collision: Explosion -> Brick with power up | Result: PASS" << std::endl;
+    } else {
+        std::cout << "Collision: Explosion -> Brick with power up | Result: FAIL" << std::endl;
+    }
 }
