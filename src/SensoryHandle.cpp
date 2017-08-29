@@ -44,7 +44,7 @@ void SensoryHandle::loadLibrary(std::string name) {
 		//TODO throw LibraryNotFoundException();
 	}
 
-	instantiate = reinterpret_cast<instantiate>(loadSymbol("graphicsLibraryInstantiate"));
-	uninstantiate = reinterpret_cast<unInstantiate>(loadSymbol("graphicsLibraryUnInstantiate"));
+	instantiate = reinterpret_cast<instantiate>(loadSymbol("createObject"));
+	uninstantiate = reinterpret_cast<unInstantiate>(loadSymbol("destroyObject"));
 	instance = instantiate();
 }
