@@ -56,4 +56,3 @@ int LogicManager::getGhostDirectionToMove(const Ghost &ghost, const Bomberman &b
 	}
 	return (0);
 }
-
