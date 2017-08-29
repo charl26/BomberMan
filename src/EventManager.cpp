@@ -401,9 +401,9 @@ void EventManager::nextLevel() {
  */
 
 PowerUP *EventManager::getPowerUp(AbstractEntity *object) {
-    for (int i{}; i < powerups.size(); i++) {
-        if (powerups[i]->getXPos() == object->getXPos() && powerups[i]->getYPos() == object->getYPos()) {
-            return (powerups[i]);
+    for (auto powerup : powerups) {
+        if (powerup->getXPos() == object->getXPos() && powerup->getYPos() == object->getYPos()) {
+            return (powerup);
         }
     }
     return (nullptr);
@@ -507,9 +507,9 @@ void EventManager::eraseGhost(AbstractEntity *object) {
  */
 
 Brick *EventManager::getBrick(AbstractEntity *object) {
-    for (int i{}; i < bricks.size(); i++) {
-        if (bricks[i]->getXPos() == object->getXPos() && bricks[i]->getYPos() == object->getYPos()) {
-            return (bricks[i]);
+    for (auto brick : bricks) {
+        if (brick->getXPos() == object->getXPos() && brick->getYPos() == object->getYPos()) {
+            return (brick);
         }
     }
     return (nullptr);
@@ -525,9 +525,9 @@ void EventManager::resetLevel(short signed int level) {
 }
 
 Ghost *EventManager::getGhost(AbstractEntity *object) {
-    for (int i{}; i < ghosts.size(); i++) {
-        if (ghosts[i]->getXPos() == object->getXPos() && ghosts[i]->getYPos() == object->getYPos()) {
-            return (ghosts[i]);
+    for (auto ghost : ghosts) {
+        if (ghost->getXPos() == object->getXPos() && ghost->getYPos() == object->getYPos()) {
+            return (ghost);
         }
     }
     return (nullptr);
