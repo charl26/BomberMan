@@ -23,6 +23,7 @@ void *SensoryHandle::loadSymbol(const std::string name) {
 	dlsymError = dlerror();
 
 	if (dlsymError != nullptr) {
+		throw std::exception();
 		//TODO throw SymbolNotFoundException();
 	}
 
@@ -44,7 +45,7 @@ void SensoryHandle::loadLibrary(std::string name) {
 		//TODO throw LibraryNotFoundException();
 	}
 
-	instantiate = reinterpret_cast<instantiate>(loadSymbol("createObject"));
+	instantiate = reinterpret_cast<::instantiate>(loadSymbol("createObject"));
 	uninstantiate = reinterpret_cast<unInstantiate>(loadSymbol("destroyObject"));
 	instance = instantiate();
 }
