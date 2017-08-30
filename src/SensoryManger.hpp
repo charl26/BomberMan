@@ -14,12 +14,12 @@ enum moveEvent {
 };
 
 enum SoundEvent {
-	BOMBEXPLODES = 0;
+	BOMBEXPLODES = 0
 };
 
 
 /**
- * @brief  IGraphics will be extended by Graphics that will contain
+ * @brief  SensoryManger will be extended by Graphics that will contain
  * the dynamic graphics LIB which will process graphics, audio and KeyHooks
  * @var action will be accessed by the Event Manger to apply the keyHook to Core game
  * @var sound will be accessed by the audio player to player which sound
