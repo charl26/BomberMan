@@ -17,7 +17,7 @@ protected:
 	void *handler;
 	unInstantiate uninstantiate;
 public:
-	static
+
 
 	SensoryManger *instance;
 
