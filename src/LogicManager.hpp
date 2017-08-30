@@ -8,12 +8,13 @@
 
 #include "AbstractEntity.hpp"
 #include "Ghost.hpp"
+#include "Bomberman.hpp"
 
 class EventManager;
 
 class LogicManager {
 public:
-	int moveGhost(const Ghost &ghost);
+	int getGhostDirectionToMove(const Ghost &ghost, const Bomberman &bomberMan);
 	AbstractEntity *const & retrieveObjectByCoordinates(signed short int coordX, signed short int coordY);
 	void moveExplosion();
 
